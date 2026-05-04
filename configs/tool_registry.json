@@ -1,0 +1,36 @@
+{
+  "retrieve_docs": {
+    "description": "Retrieve evidence chunks for a fault diagnosis query.",
+    "required": {
+      "fault_code": "string",
+      "component": "string",
+      "top_k": "integer"
+    },
+    "risk_level": "low"
+  },
+  "rerank_docs": {
+    "description": "Rerank retrieved evidence chunks by query relevance.",
+    "required": {
+      "query_id": "string",
+      "candidate_chunk_ids": "array"
+    },
+    "risk_level": "low"
+  },
+  "generate_sop": {
+    "description": "Generate a safe SOP-style answer grounded in evidence.",
+    "required": {
+      "risk_level": "string",
+      "requires_citation": "boolean",
+      "allow_direct_action": "boolean"
+    },
+    "risk_level": "high"
+  },
+  "verify_citation": {
+    "description": "Verify whether a cited chunk supports an answer claim.",
+    "required": {
+      "claim_id": "string",
+      "citation_required": "boolean"
+    },
+    "risk_level": "low"
+  }
+}

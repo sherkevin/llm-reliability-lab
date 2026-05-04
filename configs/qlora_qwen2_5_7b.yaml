@@ -1,0 +1,40 @@
+model:
+  base_model: Qwen2.5-7B-Instruct
+  method: QLoRA
+  quantization: 4bit_nf4
+  compute_dtype: bf16
+
+lora:
+  rank: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+  optional_target_modules:
+    - gate_proj
+    - up_proj
+    - down_proj
+
+training:
+  learning_rate: 0.0002
+  scheduler: cosine
+  warmup_ratio: 0.03
+  max_seq_length: 4096
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 16
+  num_train_epochs: 2
+  gradient_checkpointing: true
+
+evaluation:
+  heldout_domain_qa: true
+  citation_support: true
+  refusal_accuracy: true
+  tool_call_argument_accuracy: true
+  high_risk_wrong_action_rate: true
+
+notes:
+  - This is a public portfolio configuration, not a claim of large-scale production training.
+  - The evaluation gates are more important than the training loss.
